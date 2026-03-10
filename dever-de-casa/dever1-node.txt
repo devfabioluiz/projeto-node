@@ -1,0 +1,4 @@
+Crie no mongodb um banco de dados com seu nome e uma tabela com nome do tema que vc escolheu:
+pokemon ou times-brasileirao
+
+insere documentos json na collection/tabela q vc criou
