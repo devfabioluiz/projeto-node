@@ -1,15 +1,34 @@
-let pokemon = [];
+const clientPromise = require("../banco-de-dados/config");
+const { ObjectId } = require("mongodb");
 
-exports.getPokemon = () => {
-  return pokemon;
+exports.getPokemon = async () => {
+  const client = await clientPromise;
+  const db = client.db("jplima_db");
+
+  return db.collection("pokemon").find({}).toArray();
 };
 
-exports.createPokemon = (data) => {
-  const newPokemon = {
-    id: pokemon.length + 1,
-    nome: data.nome
-  };
+exports.getPokemonById = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    throw new Error("ID inválido");
+  }
 
-  pokemon.push(newPokemon);
-  return newPokemon;
+  const client = await clientPromise;
+  const db = client.db("jplima_db");
+
+  return db.collection("pokemon").findOne({ _id: new ObjectId(id) });
+};
+
+exports.createPokemon = async (pokemon) => {
+  const client = await clientPromise;
+  const db = client.db("jplima_db");
+
+  return db.collection("pokemon").insertOne(pokemon);
+};
+
+exports.deletePokemon = async (id) => {
+  const client = await clientPromise;
+  const db = client.db("jplima_db");
+
+  return db.collection("pokemon").deleteOne({ _id: new ObjectId(id) });
 };
