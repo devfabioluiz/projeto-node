@@ -1,5 +1,6 @@
 const clientPromise = require("../banco-de-dados/config");
 const { ObjectId } = require("mongodb");
+const Pokemon = require("../models/pokemonModel").default;
 
 exports.getPokemon = async () => {
   const client = await clientPromise;
@@ -19,9 +20,11 @@ exports.getPokemonById = async (id) => {
   return db.collection("pokemon").findOne({ _id: new ObjectId(id) });
 };
 
-exports.createPokemon = async (pokemon) => {
+exports.createPokemon = async (pokemonData) => {
   const client = await clientPromise;
   const db = client.db("jplima_db");
+
+  const pokemon = new Pokemon(pokemonData);
 
   return db.collection("pokemon").insertOne(pokemon);
 };
@@ -29,6 +32,6 @@ exports.createPokemon = async (pokemon) => {
 exports.deletePokemon = async (id) => {
   const client = await clientPromise;
   const db = client.db("jplima_db");
-
+  
   return db.collection("pokemon").deleteOne({ _id: new ObjectId(id) });
 };

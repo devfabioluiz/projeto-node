@@ -1,4 +1,4 @@
-import { z } from "zod";
+const { z } = require("zod");
 
 const pokemonSchema = z.object({
   name: z.string().min(3),
@@ -17,4 +17,4 @@ class Pokemon {
   }
 }
 
-export default Pokemon;
+module.exports = Pokemon;
