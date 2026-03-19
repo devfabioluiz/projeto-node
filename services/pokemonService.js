@@ -1,6 +1,6 @@
 const clientPromise = require("../banco-de-dados/config");
 const { ObjectId } = require("mongodb");
-const Pokemon = require("../models/pokemonModel").default;
+const Pokemon = require("../models/pokemonModel");
 
 exports.getPokemon = async () => {
   const client = await clientPromise;
